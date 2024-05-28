@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query Service</title>
+</head>
+<body>
+    <h1>Query Service</h1>
+    <form action="/query" method="post">
+        <label for="bucket">Bucket Name:</label><br>
+        <input type="text" id="bucket" name="bucket" required><br><br>
+        <label for="file">File Name:</label><br>
+        <input type="text" id="file" name="file" required><br><br>
+        <label for="query">SQL Query:</label><br>
+        <textarea id="query" name="query" rows="4" cols="50" required></textarea><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <div id="results"></div>
+    <script>
+        document.querySelector('form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const response = await fetch('/query', {
+                method: 'POST',
+                body: formData
+            });
+            const results = await response.json();
+            document.getElementById('results').textContent = JSON.stringify(results, null, 2);
+        });
+    </script>
+</body>
+</html>
