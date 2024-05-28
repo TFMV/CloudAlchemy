@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 app.post('/query', async (req, res) => {
     const { bucket, file, query } = req.body;
     try {
-        const response = await axios.get(`https://your-cloud-run-url/query`, {
+        const response = await axios.get(`https://query-service-fjshaiytvq-uc.a.run.app/query`, {
             params: { bucket, file, query }
         });
         res.json(response.data);
